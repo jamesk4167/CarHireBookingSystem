@@ -11,6 +11,7 @@ package ie.gmit.sw.G00341457_DS;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -47,19 +48,22 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "color",
     "condition"
 })
+
+//have to make car the root element so it can be displayed
+@XmlRootElement
 public class Car {
 
     @XmlElement(name = "Make", required = true)
-    protected String make;
+    private String make;
     @XmlElement(name = "Reg", required = true)
-    protected String reg;
+    private String reg;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar yearMade;
+    private int yearMade;
     @XmlElement(required = true)
-    protected String color;
+    private String color;
     @XmlElement(required = true)
-    protected String condition;
+    private String condition;
 
     /**
      * Gets the value of the make property.
@@ -100,13 +104,13 @@ public class Car {
     /**
      * Sets the value of the reg property.
      * 
-     * @param value
+     * @param string
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setReg(String value) {
-        this.reg = value;
+    public void setReg(String string) {
+        this.reg = string;
     }
 
     /**
@@ -117,20 +121,20 @@ public class Car {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getYearMade() {
+    public int getYearMade() {
         return yearMade;
     }
 
     /**
      * Sets the value of the yearMade property.
      * 
-     * @param value
+     * @param i
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setYearMade(XMLGregorianCalendar value) {
-        this.yearMade = value;
+    public void setYearMade(int i) {
+        this.yearMade = i;
     }
 
     /**
