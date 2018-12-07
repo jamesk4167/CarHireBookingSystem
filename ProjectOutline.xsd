@@ -1,48 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- simple XML schema for Car customer and address will come back and add more functionality later -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:gmit="http://sw.gmit.ie/ds/"
-	targetNamespace="http://sw.gmit.ie/ds/" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gmit="http://sw.gmit.ie/ds/" targetNamespace="http://sw.gmit.ie/ds/" elementFormDefault="qualified">
+  <xsd:element name='comment' type='xsd:string'/>
 
+  <xsd:element name='Booking' type='gmit:Booking'/>
 
-	<!-- Create a car object -->
-	<xsd:complexType name='Car'>
-		<xsd:sequence>
-			<xsd:element name="Make" type="xsd:string" />
-			<xsd:element name="Reg" type="xsd:string" />
-			<xsd:element name="yearMade" type="xsd:date" />
-			<xsd:element name="color" type="xsd:string" />
-			<xsd:element name="condition" type="xsd:string" />
+  <xsd:simpleType name="OrderNumber">
+    <xsd:restriction base="xsd:int">
+      <xsd:pattern value="[0-9]{5}(-[A-Z]{4})?" />
+    </xsd:restriction>
+  </xsd:simpleType>
 
+  
 
-		</xsd:sequence>
+  <xsd:simpleType name='SKU'>
+    <xsd:restriction base='xsd:string'>
+      <xsd:pattern value='\d{3}\w{3}'/>
+    </xsd:restriction>
+  </xsd:simpleType>
 
-	</xsd:complexType>
-
-
-	<xsd:complexType name='Customer'>
-		<xsd:sequence>
-			<xsd:element name="firstName" type="xsd:string" />
-			<xsd:element name="lastName" type="xsd:string" />
-			<xsd:element name="Age" type="xsd:string" />
-			<xsd:element name="AccountNo" type="xsd:int" />
-
-		</xsd:sequence>
-
-	</xsd:complexType>
-
-
-	<xsd:complexType name='Address'>
-		<xsd:sequence>
-			<xsd:element name='name' type='xsd:string' />
-			<xsd:element name='street' type='xsd:string' />
-			<xsd:element name='city' type='xsd:string' />
-			<xsd:element name='county' type='xsd:string' />
-			<xsd:element name='country' type='xsd:string' />
-		</xsd:sequence>
-
-	</xsd:complexType>
-
-
+<!-- SCHEMA FOR CARS -->
+  <xsd:complexType name='Car'>
+    <xsd:annotation>
+      <xsd:documentation>
+        Booking order schema 
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+	  <xsd:element name='id'   type='xsd:int'/>
+      <xsd:element name='makeAndModel'   type='xsd:string'/>
+      <xsd:element name='color' type='xsd:string'/>
+      <xsd:element name='reg'   type='xsd:string'/>
+      <xsd:element name='numberOfDoors'  type='xsd:int'/>
+    </xsd:sequence>
+    
+  </xsd:complexType>
+  
+  
+  <!-- SCHEMA FOR OWNERS -->
+  <xsd:complexType name='Owner'>
+    <xsd:annotation>
+      <xsd:documentation>
+        Booking Order Scheme
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+	  <xsd:element name='name'   type='xsd:string'/>
+      <xsd:element name='age'   type='xsd:int'/>
+      <xsd:element name='dateOfBirth' type='xsd:int'/>
+    </xsd:sequence>
+    
+  </xsd:complexType>
+  
+  <xsd:complexType name='Booking'>
+    <xsd:sequence>
+      <xsd:element name='shipTo' type='gmit:Owner'/>
+      <xsd:element name='billTo' type='gmit:Owner'/>
+      <xsd:element name='Car'  type='gmit:Car'/>
+    </xsd:sequence>
+	<xsd:attribute name='orderNumber' type='gmit:OrderNumber' use='required'/>
+    <xsd:attribute name='orderDate' type='xsd:date' use='required'/>
+  </xsd:complexType>
 
 </xsd:schema>
